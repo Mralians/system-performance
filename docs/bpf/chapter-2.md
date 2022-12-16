@@ -51,9 +51,9 @@
 
     | BPF Helper Function                                | Description                                                  |
     | :------------------------------------------------- | ------------------------------------------------------------ |
-    | `bpf_map_lookup_elem(map, key)`                    | Finds a key in a map and returns its value(pointer).         |
-    | `bpf_map_update_elem(map,key,value,flags)`         | Update the value of the entry selected by key.               |
-    | `bpf_map_delete_elem(map, key)`                    | Deletes the entry selected by key from the map.              |
+    | `bpf_map_lookup_elem(map, key)`                    | **Finds** a key in a map and returns its value(pointer).     |
+    | `bpf_map_update_elem(map,key,value,flags)`         | **Update** the value of the entry selected by key.           |
+    | `bpf_map_delete_elem(map, key)`                    | **Deletes** the entry selected by key from the map.          |
     | `bpf_probe_read(dst, size, src)`                   | Safely reads size bytes from address src n and stores in dst. |
     | `bpf_ktime_get_ns()`                               | Returns the time since boot,in nanoseconds.                  |
     | `bpf_trace_printk(fmt, fmt_size, ...)`             | A debugging helper that writes to TraceFs trace{_pipe}.      |
