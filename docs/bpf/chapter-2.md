@@ -72,3 +72,80 @@
 15. `include/uapi/linux/bpf.h` file often provides detailed documentation for these helpers.
 
 16. `bpf_probe_read()` is a particularly important helper. Memory access in BPF is restricted to BPF registers and the stack. Arbitrary memory(such as other kernel memory outside of BPF) must be read via `pbf_probe_read()`, witch performs safety checks and disables page faults to ensure that the reads do not cause faults from probe context (witch could cause kernel problems).
+
+    ------
+
+    
+
+## Stack Trace Walking 
+
+Stack trace are an invaluable tool for understanding the code path that led to an event, as well as profiling kernel and user code to observe where execution time is spent.
+
+BPF provides special map types for recording stack traces and can fetch them using frame-pointer-based or ORC-base stack walks. BPF may support other stack walking techniques in the future.
+
+1. **Frame Pointer-Based Stacks**
+
+   The frame pointer technique follows a convention where the head of a linked list of stack frames can always be found in a register (RBP on `x86_64`) and where the return address is stored at a known offset(+8) from the stored RBP.
+
+   The AMD64 ABI notes that the use of RBP as a frame pointer register is conventional, and can be avoided to save function prologue and epilogue instructions, and make RBP available as a general-purpose register.
+
+   The gcc compile currently defaults to omitting the frame pointer and using RBP as a general-purpose register, which breaks frame pointer-based stack walking. This defaults can be reverted using the `-fno-omit=frame-pointer` option.
+
+   Many microservices at Netflix are running with the frame pointer reenabled, as the performance wins found by CPU profiling outweigh the tiny loss of performance.
+
+2. **debuginfo**
+
+   Additional debugging information is often available for software as debuginfo packages, which contain ELF debuginfo  files in the DWARF format. these include sections that debuggers such as gdb(1) can use to walk the stack trace, even when no frame pointer registers is in use. The ELF sections are `.eh_frame` and `.debug_frame`.
+
+   BPF does not currently support this technique of stack walking.
+
+3. **Last Branch Record(LBR)**
+
+   last branch record is an intel processor feature to record branches in a hardware buffer, including function call branches. this technique has no overhead and can be used to reconstruct a stack trace. However, it is limited in depth depending on the processor, and may only support recording 4 to 32 branches.
+
+   LRB is not currently supported by BPF, but it may be in the future. A limited stack trace is better than no stack trace!
+
+4. **ORC**
+
+   A new debug information format that has been devised for stack traces, Oops Rewind Capability(ORC), is less processor intensive than DWARF. ORC uses `.orc_unwind` and `.orc_unwind_ip` ELF sections, and it has so far been implemented for linux kernel. On register-limited architectures, it may be desirable to compile the kernel without the frame pointer and use ORC for stack traces instead.
+
+   ORC stack have not yet been developed for user space.
+
+5. **Symbols**
+
+   Stack traces are currently recorded in the kernel as an array of address that are later translated to symbols (such as function names) by a user-level program.
+
+   ------
+
+   
+
+## Flame Graphs
+
+flame graphs are visualization of stack trace.
+
+1. **Stack trace**
+
+   A stack trace, also called a stack back trace or a call trace, is a series of functions that show the flow of code.
+
+2. **Profiling Stack Traces**
+
+   Timed sampling of stack traces can be tens or hundreds of lines long each. To make this volume of data easier to study, **BCC** profiler tool summarize stack traces in a different way, showing a count for each unique stack trace.
+
+   and **perf**(1) profiler summarizes stack samples as a call tree, and shows percentage for each path. 
+
+   ------
+
+   
+
+## Event Source
+
+1. **Kprobes**
+
+   **Kprobes** provide kernel dynamic instrumentation
+
+   **Kprobes** can create instrumentation events for any kernel function, and it can instrument instructions within functions. It can do this live, in production environment, without needing to either reboot the system to run the kernel in any special mode.
+   we can instrument any of the tens of thousands of kernel functions in linux to create new custom metrics as needed.
+
+   The kprobes technology also has an interface called **kretprobes** for instrumenting when functions return, and their return values. when kprobes and kretprobes instrument the same function, timestamps can be recorded to calculate the duration of a function, which can be an important metric for performance analysis.
+
+2. **How Kprobes Work**
