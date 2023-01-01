@@ -1,0 +1,14 @@
+[package]
+name = "inet_rtm_route_count"
+authors = ["mralians <angryredninja26@gmail.com>"]
+version = "0.1.0"
+edition = "2018"
+description = "route-change event watcher"
+keywords = ["bpf", "bcc"]
+
+[dependencies]
+anyhow = "1.0.68"
+bcc = "0.0.33"
+byteorder = "1.4.3"
+ctrlc = "3.2.4"
+libc = "0.2.139"
