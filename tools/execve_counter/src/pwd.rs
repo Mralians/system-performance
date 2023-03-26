@@ -61,6 +61,7 @@ impl Passwd {
     ///        None => panic!("user not found!"),
     /// };
     /// ```
+    #[inline]
     pub fn getpwnam(username: &str) -> Option<Passwd> {
         let passwd = parse_passwd().unwrap();
         passwd.into_iter().find(|passwd| passwd.pw_name == username)
@@ -74,35 +75,42 @@ impl Passwd {
     ///        None => panic!("user not found!"),
     /// };
     /// ```
+    #[inline]
     pub fn getpwuid(uid: Uid) -> Option<Passwd> {
         let passwd = parse_passwd().unwrap();
         passwd.into_iter().find(|passwd| passwd.pw_uid == uid)
     }
 
+    #[inline]
     pub fn username(&self) -> &str {
         self.pw_name.as_ref()
     }
 
+    #[inline]
     pub fn password(&self) -> &str {
         self.pw_passwd.as_ref()
     }
 
+    #[inline]
     pub fn uid(&self) -> u32 {
         self.pw_uid
     }
 
+    #[inline]
     pub fn gid(&self) -> u32 {
         self.pw_gid
     }
 
+    #[inline]
     pub fn description(&self) -> &str {
         self.pw_gecos.as_ref()
     }
 
+    #[inline]
     pub fn home(&self) -> &PathBuf {
         &self.pw_dir
     }
-
+    #[inline]
     pub fn shell(&self) -> &PathBuf {
         &self.pw_shell
     }
