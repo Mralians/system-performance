@@ -32,6 +32,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
@@ -69,10 +70,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -80,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../linux_60-Second_analysis.html"><strong aria-hidden="true">1.</strong> Linux 60 Second Analysis</a></li><li class="chapter-item expanded "><a href="../bpftrace.html"><strong aria-hidden="true">2.</strong> Bpftrace one-line commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bpftrace/cpu.html"><strong aria-hidden="true">2.1.</strong> CPU</a></li><li class="chapter-item expanded "><a href="../bpftrace/memory.html"><strong aria-hidden="true">2.2.</strong> Memory</a></li><li class="chapter-item expanded "><a href="../bpftrace/fs.html"><strong aria-hidden="true">2.3.</strong> File Systems</a></li><li class="chapter-item expanded "><a href="../bpftrace/disk.html"><strong aria-hidden="true">2.4.</strong> Disks</a></li><li class="chapter-item expanded "><a href="../bpftrace/networking.html" class="active"><strong aria-hidden="true">2.5.</strong> Networking</a></li></ol></li><li class="chapter-item expanded "><a href="../observability_tools/introdution.html"><strong aria-hidden="true">3.</strong> observability_tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../observability_tools/memory.html"><strong aria-hidden="true">3.1.</strong> Memory</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_1/introdution.html"><strong aria-hidden="true">4.</strong> Technology Background</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_1/bpf.html"><strong aria-hidden="true">4.1.</strong> BPF</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../linux_60-Second_analysis.html"><strong aria-hidden="true">1.</strong> Linux 60 Second Analysis</a></li><li class="chapter-item expanded "><a href="../bpftrace.html"><strong aria-hidden="true">2.</strong> Bpftrace one-line commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bpftrace/cpu.html"><strong aria-hidden="true">2.1.</strong> CPU</a></li><li class="chapter-item expanded "><a href="../bpftrace/memory.html"><strong aria-hidden="true">2.2.</strong> Memory</a></li><li class="chapter-item expanded "><a href="../bpftrace/fs.html"><strong aria-hidden="true">2.3.</strong> File Systems</a></li><li class="chapter-item expanded "><a href="../bpftrace/disk.html"><strong aria-hidden="true">2.4.</strong> Disks</a></li><li class="chapter-item expanded "><a href="../bpftrace/networking.html" class="active"><strong aria-hidden="true">2.5.</strong> Networking</a></li></ol></li><li class="chapter-item expanded "><a href="../observability_tools/introdution.html"><strong aria-hidden="true">3.</strong> observability_tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../observability_tools/memory.html"><strong aria-hidden="true">3.1.</strong> Memory</a></li></ol></li><li class="chapter-item expanded "><a href="../chapter_1/introdution.html"><strong aria-hidden="true">4.</strong> Technology Background</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chapter_1/bpf.html"><strong aria-hidden="true">4.1.</strong> BPF</a></li></ol></li><li class="chapter-item expanded "><a href="../network/network.html"><strong aria-hidden="true">5.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../network/term.html"><strong aria-hidden="true">5.1.</strong> Terminology</a></li><li class="chapter-item expanded "><a href="../network/models.html"><strong aria-hidden="true">5.2.</strong> Models</a></li><li class="chapter-item expanded "><a href="../network/concepts.html"><strong aria-hidden="true">5.3.</strong> Concepts</a></li><li class="chapter-item expanded "><a href="../network/architecture.html"><strong aria-hidden="true">5.4.</strong> Architecture</a></li><li class="chapter-item expanded "><a href="../network/methodology.html"><strong aria-hidden="true">5.5.</strong> Methodology</a></li><li class="chapter-item expanded "><a href="../network/observability.html"><strong aria-hidden="true">5.6.</strong> Observability Tools</a></li><li class="chapter-item expanded "><a href="../network/experimentation.html"><strong aria-hidden="true">5.7.</strong> Experimentation</a></li><li class="chapter-item expanded "><a href="../network/tuning.html"><strong aria-hidden="true">5.8.</strong> Tuning</a></li><li class="chapter-item expanded "><a href="../network/exercises.html"><strong aria-hidden="true">5.9.</strong> Exercises</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -272,22 +275,6 @@
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
@@ -307,5 +294,6 @@
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>

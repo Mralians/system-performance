@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -81,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="linux_60-Second_analysis.html"><strong aria-hidden="true">1.</strong> Linux 60 Second Analysis</a></li><li class="chapter-item expanded "><a href="bpftrace.html"><strong aria-hidden="true">2.</strong> Bpftrace one-line commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bpftrace/cpu.html"><strong aria-hidden="true">2.1.</strong> CPU</a></li><li class="chapter-item expanded "><a href="bpftrace/memory.html"><strong aria-hidden="true">2.2.</strong> Memory</a></li><li class="chapter-item expanded "><a href="bpftrace/fs.html"><strong aria-hidden="true">2.3.</strong> File Systems</a></li><li class="chapter-item expanded "><a href="bpftrace/disk.html"><strong aria-hidden="true">2.4.</strong> Disks</a></li><li class="chapter-item expanded "><a href="bpftrace/networking.html"><strong aria-hidden="true">2.5.</strong> Networking</a></li></ol></li><li class="chapter-item expanded "><a href="observability_tools/introdution.html"><strong aria-hidden="true">3.</strong> observability_tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="observability_tools/memory.html"><strong aria-hidden="true">3.1.</strong> Memory</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_1/introdution.html"><strong aria-hidden="true">4.</strong> Technology Background</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_1/bpf.html"><strong aria-hidden="true">4.1.</strong> BPF</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="linux_60-Second_analysis.html"><strong aria-hidden="true">1.</strong> Linux 60 Second Analysis</a></li><li class="chapter-item expanded "><a href="bpftrace.html"><strong aria-hidden="true">2.</strong> Bpftrace one-line commands</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bpftrace/cpu.html"><strong aria-hidden="true">2.1.</strong> CPU</a></li><li class="chapter-item expanded "><a href="bpftrace/memory.html"><strong aria-hidden="true">2.2.</strong> Memory</a></li><li class="chapter-item expanded "><a href="bpftrace/fs.html"><strong aria-hidden="true">2.3.</strong> File Systems</a></li><li class="chapter-item expanded "><a href="bpftrace/disk.html"><strong aria-hidden="true">2.4.</strong> Disks</a></li><li class="chapter-item expanded "><a href="bpftrace/networking.html"><strong aria-hidden="true">2.5.</strong> Networking</a></li></ol></li><li class="chapter-item expanded "><a href="observability_tools/introdution.html"><strong aria-hidden="true">3.</strong> observability_tools</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="observability_tools/memory.html"><strong aria-hidden="true">3.1.</strong> Memory</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_1/introdution.html"><strong aria-hidden="true">4.</strong> Technology Background</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chapter_1/bpf.html"><strong aria-hidden="true">4.1.</strong> BPF</a></li></ol></li><li class="chapter-item expanded "><a href="network/network.html"><strong aria-hidden="true">5.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="network/term.html"><strong aria-hidden="true">5.1.</strong> Terminology</a></li><li class="chapter-item expanded "><a href="network/models.html"><strong aria-hidden="true">5.2.</strong> Models</a></li><li class="chapter-item expanded "><a href="network/concepts.html"><strong aria-hidden="true">5.3.</strong> Concepts</a></li><li class="chapter-item expanded "><a href="network/architecture.html"><strong aria-hidden="true">5.4.</strong> Architecture</a></li><li class="chapter-item expanded "><a href="network/methodology.html"><strong aria-hidden="true">5.5.</strong> Methodology</a></li><li class="chapter-item expanded "><a href="network/observability.html"><strong aria-hidden="true">5.6.</strong> Observability Tools</a></li><li class="chapter-item expanded "><a href="network/experimentation.html"><strong aria-hidden="true">5.7.</strong> Experimentation</a></li><li class="chapter-item expanded "><a href="network/tuning.html"><strong aria-hidden="true">5.8.</strong> Tuning</a></li><li class="chapter-item expanded "><a href="network/exercises.html"><strong aria-hidden="true">5.9.</strong> Exercises</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -915,6 +918,206 @@ dot -Tpng -Elen=2.5 biolatency_done.dot -o biolatency_done.png
 <p><code>bpf_probe_read()</code> is a particularly important helper. Memory access in BPF is restricted to BPF registers and the stack. Arbitrary memory(such as other kernel memory outside of BPF) must be read via <code>pbf_probe_read()</code>, witch performs safety checks and disables page faults to ensure that the reads do not cause faults from probe context (witch could cause kernel problems).</p>
 </li>
 </ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="network"><a class="header" href="#network">Network</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="terminology"><a class="header" href="#terminology">Terminology</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="models"><a class="header" href="#models">Models</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="concepts"><a class="header" href="#concepts">Concepts</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
+<h2 id="software"><a class="header" href="#software">Software</a></h2>
+<ol>
+<li>Networking software includes the <strong>network stack</strong>, <strong>TCP</strong>, and <strong>device drivers</strong>.</li>
+</ol>
+<h3 id="network-stack"><a class="header" href="#network-stack">Network Stack</a></h3>
+<ol>
+<li>On modern kernels the stack is multithreaded, and inbound packets can be processed by multiple CPUs.</li>
+</ol>
+<h4 id="linux"><a class="header" href="#linux">Linux</a></h4>
+<ol>
+<li>
+<p>On Linux systems, the network stack is a core kernel component.</p>
+</li>
+<li>
+<p>device drivers are additional modules.</p>
+</li>
+<li>
+<p>Packets are passed through these kernel components as the struct <code>sk_buff</code> (socket buffer) data type.</p>
+</li>
+<li>
+<p>there may also be queueing in the IP layer (not pictured) for packet reassembly.</p>
+</li>
+<li>
+<p><strong>Application</strong>: This is the highest level where user applications operate. Applications use network services to send and receive data over the network.</p>
+<p><strong>Libraries</strong>: These provide a set of functions for the application to use for networking, abstracting the complexity of direct system calls.</p>
+<p><strong>System Calls</strong>: These are the interfaces provided by the operating system kernel that applications call to perform network operations like send and receive data.</p>
+<p><strong>Kernel</strong>: The central component of the OS that manages operations between hardware and software.</p>
+<ul>
+<li><strong>VFS (Virtual File System)</strong>: It provides an abstraction layer for file system operations and might also be involved in network operations when data is written to or read from network sockets as if they were files.</li>
+<li><strong>Socket</strong>: A network socket is an endpoint for sending or receiving data across a computer network. Sockets have buffers for sending and receiving data.</li>
+<li><strong>TCP/UDP/ICMP</strong>: These are different protocols for handling network communication.
+<ul>
+<li>TCP (Transmission Control Protocol) provides reliable, ordered, and error-checked delivery of a stream of data.</li>
+<li>UDP (User Datagram Protocol) is a simpler, connectionless Internet protocol that allows sending datagrams without establishing a connection.</li>
+<li>ICMP (Internet Control Message Protocol) is used for diagnostic purposes and error reporting, not typically for sending and receiving application data.</li>
+</ul>
+</li>
+<li><strong>IP (Internet Protocol)</strong>: This protocol is designed for sending packets across the network using IP addresses to identify the source and destination.</li>
+<li><strong>Queuing Discipline (qdisc)</strong>: This is a set of rules for how packets should be processed for transmission, including ordering, prioritizing, and scheduling packets.</li>
+<li><strong>Driver Queue</strong>: Each network interface card (NIC) driver has its own queue to buffer packets before they are transmitted or after they are received.</li>
+<li><strong>NIC / Virtual Device</strong>: The physical or virtual device that connects a computer to a network. The NIC has its own set of drivers that interact with the rest of the computer's hardware and software.</li>
+<li><strong>Device Drivers</strong>: These are specific software that controls the hardware device, in this case, the network interface card.</li>
+</ul>
+</li>
+<li>
+<p>when you're writing a network driver, part of your job is to handle the frames that are received from the network. Here's how it generally works:</p>
+<ol>
+<li><strong>Receiving Frames</strong>: The network interface card (NIC) receives frames from the physical medium (like an Ethernet cable) and places them into its hardware buffer.</li>
+<li><strong>Interrupt</strong>: Once the frame is received, the NIC typically generates an interrupt to signal the CPU that data has arrived.</li>
+<li><strong>Driver's Role</strong>: The network driver, which you would be writing, responds to this interrupt. It reads the frame from the NIC's hardware buffer into system memory.</li>
+<li><strong>Passing Up</strong>: After the frame is in system memory, the driver then hands it off to the operating system's networking stack, which processes it at various layers (like IP, TCP/UDP, etc.) until it reaches the application layer if it's incoming data.</li>
+<li><strong>Sending Frames</strong>: For outgoing data, the process is reversed. The application sends data down the stack, which eventually hands it off to the network driver. The driver then places this data into the NIC's hardware buffer for transmission on the network.</li>
+<li><strong>Buffer Management</strong>: Network drivers often implement or interact with a ring buffer or a similar data structure in system memory to efficiently manage the packets that are waiting to be processed.</li>
+</ol>
+<p>Writing a network driver involves managing these buffers, handling interrupts, and interfacing with the operating system's networking subsystems, as well as dealing with the specific hardware operations of the network device. It requires a good understanding of both the hardware and the software stack that the driver interacts with.</p>
+</li>
+<li>
+<p><code>struct sk_buff</code>, commonly known as <code>sk_buff</code>, is a data structure in the Linux kernel networking stack that represents network packets. It holds the packet's content and its associated metadata, such as timestamps, network headers, and the origin and destination of the packet. <code>sk_buff</code> is used to manage and manipulate packets as they flow through the network stack, with functions provided by the kernel for common operations like resizing or modifying the data buffer. It's a fundamental structure that encapsulates both the packet's data and the control information used by the networking subsystem.</p>
+</li>
+</ol>
+<h3 id="tcp-connection-queues"><a class="header" href="#tcp-connection-queues">TCP Connection Queues</a></h3>
+<p><strong>1. Backlog Queues:</strong></p>
+<ul>
+<li><strong>Purpose:</strong> Manage bursts of inbound TCP connections.</li>
+<li><strong>Types:</strong>
+<ul>
+<li><strong>SYN Backlog:</strong> For connections in the TCP handshake phase.</li>
+<li><strong>Listen Backlog:</strong> For established connections awaiting application acceptance.</li>
+</ul>
+</li>
+</ul>
+<p><strong>2. Queue Management Evolution:</strong></p>
+<ul>
+<li><strong>Early Systems:</strong> Used a single queue, <strong>vulnerable to SYN flood attacks</strong>.</li>
+<li><strong>SYN Flood Attack:</strong> Denial of Service (DoS) attack involving numerous bogus SYN requests to a TCP port, blocking legitimate connections.</li>
+</ul>
+<p><strong>3. Improved Management with Two Queues:</strong></p>
+<ul>
+<li><strong>Dual Queue System:</strong> Separates potentially connections from legitimate ones.</li>
+<li><strong>Benefits:</strong>
+<ul>
+<li>
+<p><strong>Staging for Unverified Connections:</strong> The SYN Backlog acts as a filter.</p>
+</li>
+<li>
+<p><strong>Established Connections:</strong> Only verified connections reach the Listen Backlog.</p>
+</li>
+<li>
+<p><strong>Optimized for Attack Mitigation:</strong> The SYN Backlog is lengthened and optimized to handle SYN floods with minimal metadata storage.</p>
+</li>
+<li>
+<p><strong>SYN Cookies:</strong> SYN cookies are a method of handling SYN requests without having to allocate significant resources for each connection. Instead of storing each incoming SYN request in a queue, the server sends back a SYN-ACK response with a specially crafted sequence number (the &quot;cookie&quot;). This sequence number is generated based on the IP address, port number, and other characteristics of the incoming SYN request.</p>
+<p><strong>Bypassing the First Queue:</strong>  the server does not need to store the state of each incoming SYN request in the SYN backlog. Instead, it relies on the client to respond correctly to the SYN-ACK with this special sequence number. If the client is legitimate and completes the handshake using the cookie (sequence number), the server can then establish the connection. This way, the server doesn't waste resources on connections that are never completed, as would be the case in a SYN flood attack.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="tcp-buffering"><a class="header" href="#tcp-buffering">TCP Buffering</a></h3>
+<ol>
+<li><strong>Send and Receive Buffers:</strong>
+<ul>
+<li><strong>Purpose:</strong> These buffers are used to temporarily store data before it is sent (send buffer) or after it is received (receive buffer) over a network connection.</li>
+<li><strong>Location:</strong> They are associated with each socket, which is an endpoint for sending or receiving data in a network connection.</li>
+</ul>
+</li>
+<li><strong>Tunable Buffer Sizes:</strong>
+<ul>
+<li><strong>Customization:</strong> The size of both send and receive buffers can be adjusted (tuned) to suit specific needs.</li>
+<li><strong>Throughput vs. Memory Trade-off:</strong> Increasing the size of these buffers can improve data throughput (the rate at which data is successfully transferred over the network). However, larger buffer sizes also mean more of the computer's main memory (RAM) is used per connection.</li>
+</ul>
+</li>
+<li><strong>Asymmetric Buffer Sizing:</strong>
+<ul>
+<li><strong>Adaptation to Server Role:</strong> One buffer can be made larger than the other, depending on the server’s expected usage. For instance, if a server is primarily sending data, the send buffer may be increased in size compared to the receive buffer, and vice versa.</li>
+</ul>
+</li>
+<li><strong>Dynamic Buffer Sizing by the Linux Kernel:</strong>
+<ul>
+<li><strong>Automatic Adjustment:</strong> The Linux kernel can dynamically adjust the size of these buffers based on the activity of the connection.</li>
+<li><strong>Tuning Parameters:</strong> The kernel allows for the tuning of buffer sizes, including setting minimum, default, and maximum sizes.</li>
+</ul>
+</li>
+<li>the send and receive buffers for TCP sockets, which are mentioned in the context of improving data throughput, are different from the buffers shown in the output of the <code>free -h</code> command on Linux systems.
+<ol>
+<li><strong>TCP Send and Receive Buffers:</strong>
+<ul>
+<li>These buffers are specifically allocated for each TCP socket connection.</li>
+<li>Their sizes determine how much data can be temporarily stored while being sent or received over that particular socket.</li>
+<li>The sizes of these buffers can be tuned for performance optimization and are managed by the TCP stack within the kernel.</li>
+</ul>
+</li>
+<li><strong>Buffers in <code>free -h</code> Command:</strong>
+<ul>
+<li>The <code>free -h</code> command in Linux displays the total amount of free and used physical and swap memory in the system, as well as the buffers and cache used by the kernel.</li>
+<li>The &quot;buffers&quot; shown in <code>free -h</code> refers to memory used by the kernel to buffer block devices (like hard drives). This helps in speeding up access to disk data and is unrelated to network sockets.</li>
+<li>These are general-purpose buffers used by the kernel for various system activities and are not directly related to the send and receive buffers of TCP sockets.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="segmentation-offload-gso-and-tso"><a class="header" href="#segmentation-offload-gso-and-tso">Segmentation Offload: GSO and TSO</a></h3>
+<ol>
+<li>
+<p><strong>Segmentation Offload:</strong></p>
+<ul>
+<li>
+<p><strong>Purpose:</strong> This is a technique used to reduce the overhead of the network stack (the software that handles network communication) in an operating system.</p>
+<p>To avoid the network stack overheads of sending many small packets Linux uses generic segmentation offload (GSO) .</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Maximum Segment Size (MSS):</strong></p>
+<ul>
+<li><strong>Definition:</strong> MSS is the largest size of a packet or segment that can be sent in a TCP connection. For many networks, the MSS is typically around 1500 bytes, which is the standard Ethernet frame size.</li>
+</ul>
+</li>
+<li>
+<p><strong>Generic Segmentation Offload (GSO):</strong></p>
+<ul>
+<li><strong>Function:</strong> GSO allows the operating system to send large packets (up to 64 Kbytes, referred to as “super packets”) to the network device.</li>
+<li><strong>Process:</strong> These super packets are then divided into smaller segments, each fitting within the MSS, just before they are delivered to the network device for transmission.</li>
+</ul>
+</li>
+<li>
+<p><strong>TCP Segmentation Offload (TSO):</strong></p>
+<ul>
+<li><strong>Integration with Network Interface Cards (NICs):</strong> When the NIC and its driver support TSO, the task of splitting the large packets into MSS-sized segments is offloaded to the NIC hardware.</li>
+<li><strong>Advantage:</strong> This offloading significantly reduces the processing load on the server's CPU and improves the throughput of the network stack.</li>
+</ul>
+</li>
+<li>
+<p><strong>Generic Receive Offload (GRO):</strong></p>
+<ul>
+<li><strong>Complementary Technique to GSO:</strong> GRO is similar to GSO but works for incoming packets. It allows the system to process fewer, larger packets, which reduces CPU overhead.</li>
+<li><strong>Implementation:</strong> Both GRO and GSO are implemented in the kernel software.</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation of TSO:</strong></p>
+<ul>
+<li><strong>Hardware-Based:</strong> TSO is implemented in the NIC hardware, differentiating it from GSO and GRO, which are software-based.</li>
+</ul>
+</li>
+</ol>
+<h3 id="queueing-discipline"><a class="header" href="#queueing-discipline">Queueing Discipline</a></h3>
+<ol>
+<li></li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="methodology"><a class="header" href="#methodology">Methodology</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="observability-tools"><a class="header" href="#observability-tools">Observability Tools</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="experimentation"><a class="header" href="#experimentation">Experimentation</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tuning"><a class="header" href="#tuning">Tuning</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exercises"><a class="header" href="#exercises">Exercises</a></h1>
 
                     </main>
 
@@ -933,22 +1136,6 @@ dot -Tpng -Elen=2.5 biolatency_done.dot -o biolatency_done.png
 
         </div>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
 
@@ -973,5 +1160,6 @@ dot -Tpng -Elen=2.5 biolatency_done.dot -o biolatency_done.png
         });
         </script>
 
+    </div>
     </body>
 </html>
