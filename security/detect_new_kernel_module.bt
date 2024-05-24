@@ -1,0 +1,16 @@
+#!/usr/bin/env bpftrace
+
+#include<linux/module.h>
+
+
+BEGIN
+{
+    printf("Tracing Kernel module loads. Hit Ctrl-C to end.\n");
+}
+
+kprobe:do_init_module
+{
+    $module = (struct module *)arg0;
+    time();
+    printf("Module init: %s, by %s [PID %d, user %s, UID %d]\n",$module->name,comm,pid,username,uid);
+}
