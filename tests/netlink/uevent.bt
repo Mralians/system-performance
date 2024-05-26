@@ -1,0 +1,8 @@
+#!/usr/bin/env bpftrace
+
+#include <linux/netlink.h>
+tracepoint:syscalls:sys_enter_socket
+/ args->protocol == NETLINK_KOBJECT_UEVENT /
+{
+    printf("CMD: %s     PID:%d\n",comm,pid);
+}
